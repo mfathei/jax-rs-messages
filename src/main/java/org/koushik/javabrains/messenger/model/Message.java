@@ -9,7 +9,7 @@ public class Message {
 
 	private long id;
 	private String message;
-	private Date create;
+	private Date created;
 	private String author;
 
 	public Message() {
@@ -19,7 +19,7 @@ public class Message {
 		super();
 		this.id = id;
 		this.message = message;
-		this.create = new Date();
+		this.created = new Date();
 		this.author = author;
 	}
 
@@ -39,12 +39,12 @@ public class Message {
 		this.message = message;
 	}
 
-	public Date getCreate() {
-		return create;
+	public Date getCreated() {
+		return created;
 	}
 
-	public void setCreate(Date create) {
-		this.create = create;
+	public void setCreated(Date created) {
+		this.created = created;
 	}
 
 	public String getAuthor() {
