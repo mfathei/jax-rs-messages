@@ -20,7 +20,7 @@ public class MessageService {
 		return new ArrayList<Message>(messages.values());
 	}
 
-	public Message getMessage(Long id) {
+	public Message getMessage(long id) {
 		return messages.get(id);
 	}
 
@@ -38,7 +38,7 @@ public class MessageService {
 		return msg;
 	}
 
-	public Message deleteMessage(Long id) {
+	public Message deleteMessage(long id) {
 		return messages.remove(id);
 	}
 }
