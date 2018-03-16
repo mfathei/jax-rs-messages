@@ -44,11 +44,16 @@ public class MessageResource {
 
     @GET
     @Path("/{msgId}")
-    public Message getMessage(@PathParam("msgId") long id) {
+    public Message getMessage(@PathParam("msgId") long id, @Context UriInfo uriInfo) {
         Message msg = messageService.getMessage(id);
-        if(msg == null){
+        if (msg == null) {
             throw new DataNotFoundException("Message with id " + id + " Not Found");
         }
+
+        msg.addLink(getUriForSelf(uriInfo, id), "self");
+        msg.addLink(getUriForProfile(uriInfo, msg.getAuthor()), "profile");
+        msg.addLink(getUriForComments(uriInfo, id), "comments");
+
         return msg;
     }
 
@@ -79,5 +84,28 @@ public class MessageResource {
     @Path("/{msgId}/comments")
     public CommentResource getComments() {
         return new CommentResource();
+    }
+
+    private String getUriForSelf(UriInfo uriInfo, long id) {
+        return uriInfo.getBaseUriBuilder()
+                .path(MessageResource.class)
+                .path(Long.toString(id))
+                .build().toString();
+    }
+
+    private String getUriForProfile(UriInfo uriInfo, String author) {
+        return uriInfo.getBaseUriBuilder()
+                .path(ProfileResource.class)
+                .path(author)
+                .build().toString();
+    }
+
+    private String getUriForComments(UriInfo uriInfo, long id) {
+        return uriInfo.getBaseUriBuilder()
+                .path(MessageResource.class)
+                .path(MessageResource.class, "getComments")
+                .path(CommentResource.class)
+                .resolveTemplate("msgId", id)
+                .build().toString();
     }
 }
