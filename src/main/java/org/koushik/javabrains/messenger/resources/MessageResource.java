@@ -24,7 +24,7 @@ import org.koushik.javabrains.messenger.service.MessageService;
 
 @Path("/messages")
 @Consumes(MediaType.APPLICATION_JSON)
-@Produces(MediaType.APPLICATION_JSON)
+@Produces(value = {MediaType.APPLICATION_JSON, MediaType.TEXT_XML})// use this with the Accept header in request
 public class MessageResource {
 
     MessageService messageService = new MessageService();
