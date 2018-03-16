@@ -16,6 +16,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import org.koushik.javabrains.messenger.exception.DataNotFoundException;
 
 import org.koushik.javabrains.messenger.model.Message;
 import org.koushik.javabrains.messenger.resources.beans.MessageFilterBean;
@@ -44,7 +45,11 @@ public class MessageResource {
     @GET
     @Path("/{msgId}")
     public Message getMessage(@PathParam("msgId") long id) {
-        return messageService.getMessage(id);
+        Message msg = messageService.getMessage(id);
+        if(msg == null){
+            throw new DataNotFoundException("Message with id " + id + " Not Found");
+        }
+        return msg;
     }
 
     @POST
