@@ -14,7 +14,7 @@ import org.koushik.javabrains.messenger.model.ErrorMessage;
  *
  * @author mahdy
  */
-@Provider
+//@Provider
 public class GenericExceptionMapper implements ExceptionMapper<Throwable> {
 
     @Override
